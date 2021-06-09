@@ -1,0 +1,9 @@
+section {
+  display: flex;
+  justify-content: space-between;
+}
+
+.sort {
+  display: flex;
+  gap: 10px;
+}

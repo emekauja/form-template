@@ -1,5 +1,5 @@
 import { SearchActionTypes } from './search.types';
-import { sortAsc, sortByLatest, sortDesc } from './search.utils';
+import { sortAsc, sortByLatest, sortDesc, sortByOldest } from './search.utils';
 
 export const filterByText = (filterText) => (dispatch, getState) => {
   const { templates } = getState();
@@ -15,7 +15,7 @@ export const filterByText = (filterText) => (dispatch, getState) => {
   dispatch({
     type: SearchActionTypes.SORT_BY_CATEGORY,
     payload: {
-      filterByText,
+      filterText,
       filteredTemplates,
     },
   });
@@ -24,9 +24,9 @@ export const filterByText = (filterText) => (dispatch, getState) => {
 export const sortByCategory = (category) => (dispatch, getState) => {
   const { templates } = getState();
 
-  const filteredTemplates = templates.filter((template) => {
-    return template.category === category;
-  });
+  const filteredTemplates = templates.filter(
+    (template) => template.category === category
+  );
 
   dispatch({
     type: SearchActionTypes.SORT_BY_CATEGORY,
@@ -40,12 +40,15 @@ export const sortByCategory = (category) => (dispatch, getState) => {
 export const sortByOrder = (order) => (dispatch, getState) => {
   const { templates } = getState();
 
-  const filteredTemplates =
-    order === 'Default'
-      ? templates
-      : order === 'Asc'
-      ? sortAsc(templates, order)
-      : sortDesc(templates, order);
+  let filteredTemplates;
+
+  if (order === 'Default') {
+    filteredTemplates = templates;
+  } else if (order === 'Ascending') {
+    sortAsc(templates, order);
+  } else {
+    sortDesc(templates, order);
+  }
 
   dispatch({
     type: SearchActionTypes.SORT_BY_ORDER,
@@ -57,14 +60,17 @@ export const sortByOrder = (order) => (dispatch, getState) => {
 };
 
 export const sortByDate = (date) => (dispatch, getState) => {
-  const { templates } = getState();
+  const { templates } = getState().templates;
 
-  const filteredTemplates =
-    date === 'Default'
-      ? templates
-      : date === 'Newest'
-      ? sortByLatest(templates)
-      : sortByOldest(templates);
+  let filteredTemplates;
+
+  if (date === 'Default') {
+    filteredTemplates = templates;
+  } else if (date === 'Newest') {
+    sortByLatest(templates);
+  } else {
+    sortByOldest(templates);
+  }
 
   dispatch({
     type: SearchActionTypes.SORT_BY_DATE,

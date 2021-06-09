@@ -1,8 +1,13 @@
 import React, { useEffect } from 'react';
-import './App.css';
+import './assets/css/App.css';
 import PropTypes from 'prop-types';
 import { connect } from 'react-redux';
 import { getTemplates } from './redux/template/template.actions';
+import Wrapper from './components/wrapper';
+import Header from './components/header';
+import Pagination from './components/pagination';
+import TemplateCard from './components/templateCard';
+import TemplateLoader from './components/templateLoader';
 
 const propTypes = {
   getTemplates: PropTypes.func.isRequired,
@@ -13,26 +18,32 @@ function App({ template: { templates, loading }, getTemplates }) {
     getTemplates();
   }, [getTemplates]);
 
+  const filteredTemplates = templates;
+
   return (
-    <div className="App">
-      {!loading ? (
+    <Wrapper>
+      <div className="App">
+        <Header />
+        {!loading ? (
+          <div className="template-list">
+            {filteredTemplates.map((template) => (
+              <TemplateCard template={template} />
+            ))}
+          </div>
+        ) : (
+          <h1>hHELLO </h1>
+        )}
+        <Pagination />
+
         <div>
-          {templates.map((template) => (
-            <div>
-              <div>{template.name}</div>
-              <div>{template.category}</div>
-              <div>{template.link}</div>
-            </div>
-          ))}
+          <TemplateLoader />
         </div>
-      ) : (
-        <h1>hHELLO </h1>
-      )}
-    </div>
+      </div>
+    </Wrapper>
   );
 }
 App.propTypes = propTypes;
-const mapStateToProps = (state) => ({
-  template: state.templates,
+const mapStateToProps = ({ templates }) => ({
+  template: templates,
 });
 export default connect(mapStateToProps, { getTemplates })(App);

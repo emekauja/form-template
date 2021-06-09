@@ -1,0 +1,50 @@
+/* .search {
+  position: relative;
+}
+
+.search input[type='text'] {
+} */
+
+.search-box input[type='text']:focus,
+.search-box input[type='text']:hover {
+  outline: none;
+}
+
+.search-box input[type='text']:focus-within {
+  border: 2px solid #8f8b8b;
+}
+
+.search-box input[type='text']::placeholder,
+.search-box input[type='text']::-moz-placeholder {
+  font-size: 0.875rem;
+  line-height: 1.125rem;
+  color: #8f8b8b;
+}
+
+.search-box {
+  width: 100%;
+  max-width: 20rem; /* change to container */
+  position: relative;
+  display: flex;
+  height: 2.8rem;
+}
+
+.search-box input[type='text'] {
+  z-index: 2;
+  width: 100%;
+  padding: 10px;
+  border: 0.5px solid #bdbdbd;
+  border-radius: 2px;
+  outline: none;
+  background: none;
+  transition: border 0.4s ease;
+}
+
+.search-icon {
+  z-index: 1;
+  position: absolute;
+  right: 0.8em;
+  bottom: 0.8em;
+  display: block;
+  padding: 0;
+}

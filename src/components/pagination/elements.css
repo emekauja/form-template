@@ -1,0 +1,9 @@
+.paginate {
+  display: flex;
+  justify-content: space-between;
+  padding: 3.5rem;
+}
+
+.paginate-details {
+  display: flex;
+}

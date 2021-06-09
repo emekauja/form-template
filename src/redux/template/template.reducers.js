@@ -12,7 +12,11 @@ export default (state = initialState, action) => {
 
   switch (type) {
     case TemplateActionTypes.GET_TEMPLATES:
-      return { ...state, templates: payload, loading: false };
+      return {
+        ...state,
+        templates: payload.slice(0, 15),
+        loading: false,
+      };
 
     case TemplateActionTypes.TEMPLATE_ERROR:
       return { ...state, error: null, loading: false };

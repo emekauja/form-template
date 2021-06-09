@@ -1,5 +1,5 @@
-export const sortAsc = (templates, field) => {
-  return templates.slice().sort((a, b) => {
+export const sortAsc = (templates, field) =>
+  templates.slice().sort((a, b) => {
     if (a[field] > b[field]) {
       return 1;
     }
@@ -8,10 +8,9 @@ export const sortAsc = (templates, field) => {
     }
     return 0;
   });
-};
 
-export const sortDesc = (templates, field) => {
-  return templates.slice().sort((a, b) => {
+export const sortDesc = (templates, field) =>
+  templates.slice().sort((a, b) => {
     if (a[field] > b[field]) {
       return -1;
     }
@@ -20,12 +19,11 @@ export const sortDesc = (templates, field) => {
     }
     return 0;
   });
-};
 
 export const sortByLatest = (templates) => {
   const filteredByDateCreated = templates.slice().sort((a, b) => {
-    let firstDate = new Date(a.created);
-    let secondDate = new Date(b.created);
+    const firstDate = new Date(a.created);
+    const secondDate = new Date(b.created);
 
     return secondDate - firstDate;
   });
@@ -34,8 +32,8 @@ export const sortByLatest = (templates) => {
 
 export const sortByOldest = (templates) => {
   const filteredByDateCreated = templates.slice().sort((a, b) => {
-    let firstDate = new Date(a.created);
-    let secondDate = new Date(b.created);
+    const firstDate = new Date(a.created);
+    const secondDate = new Date(b.created);
 
     return firstDate - secondDate;
   });
